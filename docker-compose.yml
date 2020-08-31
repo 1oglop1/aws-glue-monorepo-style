@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  pytf:
+    container_name: pytf
+    build:
+      dockerfile: "./Dockerfile"
+      context: "./"
+    command: "tail -f /dev/null"
+    working_dir: "/project"
+    volumes:
+    - "./:/project"
+    environment:
+      TF_VAR_account_id: ${TF_VAR_account_id}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_REGION: ${AWS_REGION}
+      AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
