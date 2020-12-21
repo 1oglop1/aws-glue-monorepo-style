@@ -5,6 +5,8 @@ An example of AWS Glue Jobs and workflow deployment with terraform in monorepo s
 To learn more about decisions behind this structure chek out the supporting articles:
 https://dev.to/1oglop1/aws-glue-first-experience-part-1-how-to-run-your-code-3pe3
 
+![architecture of this solution](arch_diagram.png)
+
 ## Deployment:
 
 Before deploying I highly recommend using find and replace this string `your-awsglue-bucket` to a bucket name you like.
