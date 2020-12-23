@@ -13,11 +13,9 @@ LOGGER = logging.getLogger("job")
 
 
 def run_etl(cfg, spark: pyspark.sql.SQLContext):
-    df = read_parquet(spark, f"s3://{cfg['s3_bucket']}/{cfg['s3_prefix']}")
+    df = read_parquet(spark, f"s3://{cfg['S3_BUCKET']}/{cfg['s3_prefix']}")
     LOGGER.debug("Count in: %s", df.count())
-    LOGGER.debug(
-        "Here we can continue processing data and write them to the curated zone."
-    )
+    LOGGER.debug("Here we can continue processing data and write them to the curated zone.")
 
 
 def main():

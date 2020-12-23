@@ -1,18 +1,15 @@
-# Initialize variables
-#
-# All variables set in ./terraform.tfvars must be initialized here
-#
-# Any of these variables can be used in any of this environment's .tf files
+variable "region" {
+  type        = string
+  description = "AWS region name"
+  default     = "us-east-1"
+}
+variable "tags" {
+  type        = map(string)
+  description = "AWS resource tags"
+  default     = {}
+}
 
-########################################
-# Account metadata
-########################################
-variable account_id {}
-
-variable assume_role_name {}
-
-variable infra_provisioner {}
-variable region {}
-variable tags {}
-variable glue_role {}
-
+variable "glue_bucket_name" {
+  type        = string
+  description = "S3 bucket name where glue jobs are stored"
+}

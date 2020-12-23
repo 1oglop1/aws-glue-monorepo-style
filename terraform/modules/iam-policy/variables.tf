@@ -18,7 +18,6 @@ variable "attachment_name" {
 }
 
 variable "roles" {
-  type        = list
+  type        = list(any)
   description = "The policy document. This is a JSON formatted string. For more information about building AWS IAM policy documents with Terraform"
 }
-

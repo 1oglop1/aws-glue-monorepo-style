@@ -51,7 +51,7 @@ upload-job: ## Upload job.py file
 	@echo Uploading $(JOB_NAME)
 	aws s3 cp $(TRANSITION_STATE_PY) s3://$(TF_VAR_glue_bucket_name)/code/$(JOB_NAME)/$(TRANSITION_STATE)/$(TRANSITION_STATE_PY)
 
-upload: upload-job ## Upload artefacts to S3
-	aws s3 sync --delete $(BUILD_DIR) s3://$(TF_VAR_glue_bucket_name)/code/$(JOB_NAME)/$(TRANSITION_STATE)/dependencies
+#upload: upload-job ## Upload artefacts to S3
+#	aws s3 sync --delete $(BUILD_DIR) s3://$(TF_VAR_glue_bucket_name)/code/$(JOB_NAME)/$(TRANSITION_STATE)/dependencies
 
-deploy: clean package upload ## Package and upload to S3
+deploy: clean upload-job ## Package and upload to S3

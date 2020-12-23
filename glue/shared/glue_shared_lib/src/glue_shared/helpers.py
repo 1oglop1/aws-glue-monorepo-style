@@ -56,6 +56,4 @@ def get_py_zip_egg_files(path: str) -> Tuple[str, ...]:
     This method is a workaround needed for Glue2.0 as of 2020-05-11
     """
 
-    return tuple(
-        e.path for e in filter(lambda ent: EXTENSIONS.match(ent.name), os.scandir(path))
-    )
+    return tuple(e.path for e in filter(lambda ent: EXTENSIONS.match(ent.name), os.scandir(path)))

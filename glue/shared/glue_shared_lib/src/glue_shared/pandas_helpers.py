@@ -77,9 +77,7 @@ def df_from_s3_json(
 
     for key in get_s3_keys(s3_client, bucket_name, prefix):
         resp = s3_client.get_object(Bucket=bucket_name, Key=key)
-        df = pd.read_json(
-            resp["Body"], orient="records", lines=lines, compression=compression
-        )
+        df = pd.read_json(resp["Body"], orient="records", lines=lines, compression=compression)
         df_merged = df_merged.append(df, ignore_index=True)
 
     return df_merged

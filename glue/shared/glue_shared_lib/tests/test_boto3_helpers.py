@@ -9,9 +9,7 @@ def test_resolve_2_valid_parameters():
 
     ssm_client = boto3.client("ssm")
     ssm_client.put_parameter(Name="/dev/db/host", Value="127.0.0.1", Type="String")
-    ssm_client.put_parameter(
-        Name="/dev/db/password", Value="magic", Type="SecureString"
-    )
+    ssm_client.put_parameter(Name="/dev/db/password", Value="magic", Type="SecureString")
 
     actual = resolve_ssm_parameters(
         ssm_client, {"db_host": "/dev/db/host", "db_password": "/dev/db/password"}

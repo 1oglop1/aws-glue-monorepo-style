@@ -103,9 +103,7 @@ def get_connection(glue_client, name: str) -> Dict:
 
     if response["Connection"]["ConnectionType"] == "JDBC":
         surl = urlsplit(
-            response["Connection"]["ConnectionProperties"][
-                "JDBC_CONNECTION_URL"
-            ].lstrip("jdbc:")
+            response["Connection"]["ConnectionProperties"]["JDBC_CONNECTION_URL"].lstrip("jdbc:")
         )
 
         ret.update(

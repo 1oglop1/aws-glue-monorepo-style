@@ -1,18 +1,15 @@
-resource "aws_glue_job" "example" {
-  name         = var.name
-  connections  = var.connections
+resource "aws_glue_job" "job" {
+  name        = var.name
+  connections = var.connections
 
   max_capacity = var.max_capacity
 
-  number_of_workers = var.number_of_workers
-  worker_type       = var.worker_type 
+  max_retries = var.max_retries
 
-  max_retries  = var.max_retries
-
-  glue_version = var.glue_version
+  glue_version = "1.0"
 
   command {
-    name            = var.job_command
+    name            = "pythonshell"
     script_location = var.script_location
     python_version  = var.python_version
   }

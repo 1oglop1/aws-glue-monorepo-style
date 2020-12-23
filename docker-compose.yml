@@ -1,18 +1,20 @@
 version: "3"
 
 services:
-  pytf:
-    container_name: pytf
+  glue:
+    container_name: glue
     build:
       dockerfile: "./Dockerfile"
       context: "./"
     command: "tail -f /dev/null"
     working_dir: "/project"
     volumes:
-    - "./:/project"
+      - "./:/project"
     environment:
-      TF_VAR_account_id: ${TF_VAR_account_id}
+      TF_VAR_glue_bucket_name: ${TF_VAR_glue_bucket_name}
+      TF_STATE_BUCKET: ${TF_STATE_BUCKET}
       AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
       AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
       AWS_REGION: ${AWS_REGION}
       AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
+      TERRAFORM_VERSION: 0.14.3

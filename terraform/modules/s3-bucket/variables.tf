@@ -8,7 +8,7 @@ variable "bucket_name" {
 }
 
 variable "tags" {
-  type        = map
+  type        = map(any)
   description = "Tags associated with the bucket"
 }
 

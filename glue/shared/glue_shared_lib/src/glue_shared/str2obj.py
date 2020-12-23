@@ -11,7 +11,7 @@ def str2bool(value):
     return value.lower() == "true"
 
 
-def comma_str_time_2_time_obj(comma_str: str) -> Tuple[datetime.datetime]:
+def comma_str_time_2_time_obj(comma_str: str) -> Tuple[datetime.datetime, ...]:
     """
     Convert comma separated time strings into a list of datetime objects.
 

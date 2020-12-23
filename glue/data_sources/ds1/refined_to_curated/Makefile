@@ -7,6 +7,10 @@ TRANSITION_STATE_PY=$(TRANSITION_STATE).py
 BUILD_DIR=$(BASEDIR)/dist
 JOB_TRANSITION_ZIP=$(BUILD_DIR)/$(TRANSITION_STATE).zip
 
+variables := TF_VAR_glue_bucket_name
+
+fatal_if_undefined = $(if $(findstring undefined,$(origin $1)),$(error Error: variable [$1] is undefined))
+$(foreach 1,$(variables),$(fatal_if_undefined))
 
 .PHONY: help
 help:	## This help.
@@ -45,9 +49,9 @@ package: ## Build deps package
 
 upload-job: ## Upload job.py file
 	@echo Uploading $(JOB_NAME)
-	aws s3 cp $(TRANSITION_STATE_PY) s3://your-awsglue-bucket/code/$(JOB_NAME)/$(TRANSITION_STATE)/$(TRANSITION_STATE_PY)
+	aws s3 cp $(TRANSITION_STATE_PY) s3://$(TF_VAR_glue_bucket_name)/code/$(JOB_NAME)/$(TRANSITION_STATE)/$(TRANSITION_STATE_PY)
 
 upload: upload-job ## Upload artefacts to S3
-	aws s3 cp $(JOB_TRANSITION_ZIP) s3://your-awsglue-bucket/code/$(JOB_NAME)/$(TRANSITION_STATE)/dependencies/
+	aws s3 cp $(JOB_TRANSITION_ZIP) s3://$(TF_VAR_glue_bucket_name)/code/$(JOB_NAME)/$(TRANSITION_STATE)/dependencies/
 
 deploy: clean package upload ## Package and upload to S3

@@ -12,14 +12,3 @@ variable "security_name" {
   type        = string
   description = "Name of the security configuration."
 }
-
-
-variable "raw_db_name" {
-  type        = string
-  description = "Name of the Raw database"
-}
-
-variable "refined_db_name" {
-  type        = string
-  description = "Name of the Refined database."
-}

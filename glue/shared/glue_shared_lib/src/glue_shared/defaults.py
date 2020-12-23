@@ -9,9 +9,7 @@ class InfoDebugFilter(logging.Filter):
         return rec.levelno in (logging.DEBUG, logging.INFO)
 
 
-def default_logging_config(
-    level: str = "INFO", formatter_name: str = "detailed"
-) -> Dict:
+def default_logging_config(level: str = "INFO", formatter_name: str = "detailed") -> Dict:
     """
     Create default logging config.
 

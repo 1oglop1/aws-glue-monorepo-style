@@ -8,7 +8,7 @@ import sys
 from glue_shared import parse_args
 from glue_shared.defaults import default_logging_config
 
-arguments = parse_args(sys.argv, ["APP_SETTINGS_ENVIRONMENT", "LOG_LEVEL"])
+arguments = parse_args(sys.argv, ["APP_SETTINGS_ENVIRONMENT", "LOG_LEVEL", "S3_BUCKET"])
 
 LOGGING_CONFIG = default_logging_config(arguments["LOG_LEVEL"])
 logging.config.dictConfig(LOGGING_CONFIG)
@@ -23,9 +23,6 @@ JOB_CONFIG["WORKFLOW_NAME"] = JOB_CONFIG.get("WORKFLOW_NAME")
 JOB_CONFIG["WORKFLOW_RUN_ID"] = JOB_CONFIG.get("WORKFLOW_RUN_ID")
 
 # raw data
-JOB_CONFIG[
-    "dataset_url"
-] = "https://perso.telecom-paristech.fr/eagan/class/igr204/data/cereal.csv"
 
-JOB_CONFIG["s3_bucket"] = "your-awsglue-bucket"
-JOB_CONFIG["s3_prefix"] = "ds1/refined"
+JOB_CONFIG["s3_raw_prefix"] = "ds1/raw"
+JOB_CONFIG["s3_refined_prefix"] = "ds1/refined"

@@ -13,6 +13,6 @@ variable "assume_role_policy" {
 }
 
 variable "tags" {
-  type        = map
+  type        = map(any)
   description = "Key-value mapping of tags for the IAM role"
 }

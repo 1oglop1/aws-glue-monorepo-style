@@ -6,8 +6,12 @@ variable "script_location" {
 variable "python_version" {
   type        = string
   description = "The Python version being used to execute a Python shell job. Allowed values are 2 or 3."
+  default     = "3"
+  validation {
+    condition     = contains(["2", "3"], var.python_version)
+    error_message = "Python version can be only  '2' or '3'."
+  }
 }
-
 
 variable "connections" {
   type        = list(string)
@@ -33,7 +37,6 @@ variable "max_concurrent_runs" {
   default     = "1"
 }
 
-
 variable "name" {
   type        = string
   description = "Name of the job"
@@ -46,38 +49,23 @@ variable "role_arn" {
 }
 
 variable "tags" {
-
-}
-
-variable "job_command" {
-  type        = string
-  description = "The name of the job command."
-  default     = "glueetl"
-}
-
-variable "glue_version" {
-  type        = string
-  description = "The Glue version to use."
-  default     = "1.0"
+  type        = map(string)
+  description = "AWS resource tags"
+  default     = {}
 }
 
 variable "max_capacity" {
   type        = string
   description = "The maximum number of AWS Glue data processing units (DPUs) that can be allocated when this job runs. Required when pythonshell is set, accept either 0.0625 or 1.0. "
-  default     = null
-}
-
-variable "number_of_workers" {
-  type        = number
-  default     = null
-}
-
-variable "worker_type" {
-  type        = string
-  default     = null
+  default     = "0.0625"
+  validation {
+    condition     = contains(["0.0625", "1.0"], var.max_capacity)
+    error_message = "Max capacity for python job must be a string: '0.625' or '1.0'."
+  }
 }
 
 variable "max_retries" {
+  description = "Number of retries"
   type        = string
   default     = null
 }

@@ -16,11 +16,11 @@ def main():
 
     LOGGER.info("WORKFLOW_NAME: %s", JOB_CONFIG["WORKFLOW_NAME"])
     LOGGER.info("WORKFLOW_RUN_ID %s", JOB_CONFIG["WORKFLOW_RUN_ID"])
-
-    LOGGER.info("Reading raw data from %s", JOB_CONFIG["dataset_url"])
-    df = pd.read_csv(JOB_CONFIG["dataset_url"], sep=";")
-    print(df.shape)
-    write_parquet(df, f"s3://{JOB_CONFIG['s3_bucket']}/{JOB_CONFIG['s3_prefix']}")
+    data_src = f"s3://{JOB_CONFIG['S3_BUCKET']}/{JOB_CONFIG['s3_raw_prefix']}/cereal.csv"
+    LOGGER.info("Reading raw data from %s", data_src)
+    df = pd.read_csv(data_src, sep=";")
+    LOGGER.info("DF shape %s", df.shape)
+    write_parquet(df, f"s3://{JOB_CONFIG['S3_BUCKET']}/{JOB_CONFIG['s3_refined_prefix']}")
 
 
 if __name__ == "__main__":
