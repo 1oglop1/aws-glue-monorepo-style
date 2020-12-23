@@ -1,0 +1,83 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.2.0
+    hooks:
+      - id: check-added-large-files # Prevent giant files from being committed (500kB)
+      - id: check-ast # Simply check whether the files parse as valid python.
+      - id: check-byte-order-marker # Forbid files which have a UTF-8 byte-order marker
+      - id: check-builtin-literals # Require literal syntax when initializing empty or zero Python builtin types.
+      - id: check-case-conflict # Check for files that would conflict in case-insensitive filesystems
+      - id: check-docstring-first # Checks a common error of defining a docstring after code.
+      - id: check-merge-conflict # Check for files that contain merge conflict strings.
+      - id: check-toml # This hook checks toml files for parseable syntax.
+      - id: check-yaml # This hook checks yaml files for parseable syntax.
+        args:
+        - --unsafe
+      - id: debug-statements # Check for debugger imports and py37+ `breakpoint()` calls in python source.
+      - id: detect-aws-credentials # Detects *your* aws credentials from the aws cli credentials file
+        args:
+        - --allow-missing-credentials
+      - id: detect-private-key # Detects the presence of private keys
+      - id: end-of-file-fixer # Ensures that a file is either empty, or ends with one newline.
+      - id: forbid-new-submodules # Prevent addition of new git submodules
+      - id: mixed-line-ending # Replaces or checks mixed line ending
+#      - id: no-commit-to-branch # Don't commit to branch
+      - id: trailing-whitespace # This hook trims trailing whitespace.
+        args: ["--markdown-linebreak-ext=md"]
+  # MyPy
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v0.782
+    hooks:
+      - id: mypy
+        name: mypy (ds1/raw_to_refined)
+        exclude: (docs/|tests/)
+        files: ^glue/data_sources/ds1/raw_to_refined/
+      - id: mypy
+        name: mypy (ds1/refined_to_curated)
+        exclude: (docs/|tests/)
+        files: ^glue/data_sources/ds1/refined_to_curated/
+      - id: mypy
+        name: mypy(dummy_job)
+        files: ^glue/data_sources/dummy_job/dummy_transition/
+        exclude: (docs/|tests/)
+      - id: mypy
+        name: mypy(shared_lib)
+        files: ^glue/shared/glue_shared_lib
+        exclude: (docs/|tests/)
+  # Black
+  - repo: https://github.com/ambv/black
+    rev: stable
+    hooks:
+      - id: black
+        args:
+          - "-l 100"
+  # Bandit
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.6.2
+    hooks:
+      - id: bandit
+        exclude: (docker/|tests/)
+  # Flake8
+  - repo: https://gitlab.com/pycqa/flake8
+    rev: 3.8.3
+    hooks:
+      - id: flake8
+        exclude: ^(tests/)
+        args:
+          - --max-line-length=100
+  # Terraform
+  # for this hook to work you need to have terraform-docs, TFLint, TFSec installed.
+  - repo: git://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.43.0
+    hooks:
+#      - id: terraform_fmt
+      - id: terraform_docs
+      - id: terraform_tflint
+        args:
+          - --args=--enable-rule=terraform_deprecated_index
+          - --args=--enable-rule=terraform_unused_declarations
+          - --args=--enable-rule=terraform_comment_syntax
+          - --args=--enable-rule=terraform_documented_outputs
+          - --args=--enable-rule=terraform_documented_variables
+          - --args=--enable-rule=terraform_typed_variables
+          - --args=--enable-rule=terraform_naming_convention
